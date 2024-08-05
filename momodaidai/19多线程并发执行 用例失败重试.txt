@@ -1,0 +1,106 @@
+19多线程运行测试用例--多线程插件--用例失败重跑--用例执行顺序
+
+1.执行命令 多线程运行
+addopts = -s -v -n 3
+
+
+2.多线程运行插件
+
+安装插件
+pip install pytest-xdist
+
+执行命令  pytest -vs -k test_login -n 3
+
+代码实现
+import pytest
+from time import sleep
+class TestLogin:
+    def test_login_success(self):
+        sleep(3)
+        print('登录成功场景')
+
+
+    def test_login_success1(self):
+        sleep(3)
+        print('登录失败场景')
+
+    def test_login_success2(self):
+        sleep(3)
+        print('登录错误场景')
+
+
+if __name__ == '__main__':
+    pytest.main(['-s','-v','-n=3'])
+
+
+3.失败测试用例重跑
+安装插件
+pip install pytest-rerunfailures
+
+#单个测试用例失败重跑设置
+   @pytest.mark.flaky(reruns=3,reruns_delay=2)
+    def test_login_sucess(self)
+        assert random.chhoice([True,False]),'测试失败'
+        print('登录成功场景')
+
+#全局测试用例失败重跑设置
+配置全局参数在pytest.ini 文件添加参数 --reruns 3
+
+addopts = -s -v --reruns 3
+
+代码实现
+import random
+import pytest
+
+class Testlogin:
+    # reruns 失败重跑的次数设置
+    # reruns_delay：失败重跑的时间间隔设置
+
+    单个测试用例失败重跑设置
+    @pytest.mark.flaky(reruns=3,reruns_delay=2)
+    def test_login_sucess(self):
+        assert random.choice([True,False]),'测试失败'
+        print('登录成功场景')
+
+    def test_login_sucess1(self):
+
+        print('登录失败场景')
+if __name__ == '__main__':
+    pytest.main(['-s', '-v', '-k','test_login'])
+
+
+4.测试用例执行顺序
+安装插件
+pip install  pytest-ordering
+
+1> 添加装饰器实现
+@pytest.mark.run(order=3)
+
+代码实现
+ @pytest.mark.run(order=3)
+    def test_add_user_01(self):
+        print('新增用户01')
+
+2》设置代码的执行顺序
+在pytest.ini文件中自定义参数 注册之定义标记，在代码中使用
+#注册自定义标记
+markers =
+     last
+     second
+     first
+
+代码实现
+  @pytest.mark.last
+    def test_add_user_01(self):
+        print('新增用户01')
+
+    @pytest.mark.second
+    def test_add_user_02(self):
+        print('新增用户02')
+
+    @pytest.mark.first
+    def test_add_user_03(self):
+        print('新增用户03')
+
+
+

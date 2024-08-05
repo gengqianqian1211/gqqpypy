@@ -1,0 +1,10 @@
+name: XiaoMing
+age: 14
+
+#字典
+spouse:
+  name: HuaHua
+  age: 23
+
+#前面一个 - 代表列表数据
+-name: 小明

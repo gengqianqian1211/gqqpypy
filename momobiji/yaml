@@ -1,0 +1,64 @@
+yaml语法规则
+
+https://blog.csdn.net/qq_39208536/article/details/101210786
+-------------------------
+数字
+age: 14
+score: 25.1
+-------------------------
+字符串
+name: 张三
+name: "李四 王五"
+-------------------------
+数组列表
+方法一
+subjects: ["语文","数学","英语"]
+languages: [Java,Python,Php]
+
+方法二
+fruits:
+  - 苹果
+    - 红苹果
+    - 青苹果
+    - 黄苹果
+  - 西瓜
+  - 香蕉
+-------------------------
+对象
+  Person：
+     name: zhangsan
+     age: 15
+     address: beijing
+-------------------------
+变量的使用（锚点&和引用*）
+#地址类
+address: &MyAdress
+    city: beijing
+    street: tuanjiehju
+    number: 1004
+
+#人类
+Person:
+   name: zhangsan
+   age: 18
+   <<: *MyAdress
+   -------------------------
+复合结构
+languages:
+  -Ruby
+  -Python
+
+websites:
+  Yaml: yaml.org
+  perl: use.org
+
+
+
+
+
+
+
+
+
+
+

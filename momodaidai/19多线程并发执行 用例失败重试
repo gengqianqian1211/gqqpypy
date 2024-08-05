@@ -1,0 +1,31 @@
+19多线程运行测试用例
+
+1.执行命令
+addopts = -s -v -n 3
+
+
+2.多线程运行插件
+
+安装插件
+pip install pytest-xdist
+
+代码实现
+
+
+
+3.失败测试用例重跑
+安装插件
+pip install pytest-rerunfailures
+
+代码实现
+
+
+4.测试用例执行顺序
+安装插件
+pip install  pytest-ordering
+
+代码实现
+
+
+
+

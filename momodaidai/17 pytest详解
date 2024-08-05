@@ -1,0 +1,49 @@
+pytest 框架详解---编写规则---运行方式---主函数运行
+
+1.pytest的编写规则
+测试文件以test开头或者以_test结尾
+测试类以Test开头，并且类中不能有__init__ 初始构造函数
+测试函数以test开头
+断言使用基本的assert即可
+
+代码实现
+class TestLogin:
+    def test_login_success(self):
+        print('登录成功')
+
+    def test_login_failed(self):
+        print('登录失败')
+-------------------------------------------------------
+
+2.pytest的运行方式
+1》命令行的运行 直接在命令行输入  pytest
+它将自动查询并执行当前目录及子目录下的所有以test开头的文件运行
+
+2》运行指定目录测试
+ pytest .\testcase\userManager
+
+3》运行指定文件测试
+pytest .\testcase\userManager\test_adduser
+.py
+
+4》使用 -k 参数 加指定目录名称或者指定测试文件名称运行
+
+ pytest -k testcase   指定目录文件运行
+
+ pytest -k test_login  指定测试用例运行
+
+pytest -k test_login_failed  指定运行测试函数
+
+
+-----------------------------------------------------
+3.主函数运行
+主函数运行，用于执行pytest测试，它可以传递命令行的方式来配置和控制测试执行
+
+代码实现
+创建文件 run.py
+import pytest
+
+if __name__ == '__main__':
+    pytest.main(['-v','-s','-k','login'])
+
+

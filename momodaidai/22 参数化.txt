@@ -1,0 +1,79 @@
+22--参数化
+1》参数化装饰器 @pytest.mark.parametrize
+参数化的使用方法
+使用@pytest.mark.parametrize 装饰器将参数传递给测试函数
+指定参数名和参数值
+在测试函数的参数中接收参数值，用于多次测试
+语法：@pytest.mark.parametrize(params1,params2,params3)
+测试函数接收的参数名必须要与参数化的第一个参数保持一致，参数个数也要保持一致
+
+
+
+参数格式
+@pytest.mark.parametrize('user_name,password',
+                             [('test01','admin123'),('test02','admin122'),('test03','admin121')])
+
+代码实现
+import pytest
+
+class TestParameter:
+
+
+    #传递多个参数，通过列表的类型的可迭代对象实现参数化
+    @pytest.mark.parametrize('user_name,password',
+                             [('test01','admin123'),('test02','admin122'),('test03','admin121')])
+    def test_login(self,user_name,password):
+        print(user_name)
+        print('正确的用户名和密码登录')
+
+    #传递一个参数
+    @pytest.mark.parametrize('user_name',
+                             ['test01', 'test02',  'test03'])
+    def test_login2(self, user_name):
+        print(user_name)
+        print('正确的用户名和密码登录2')
+
+    #通过元祖类型的可迭代对象实现参数化
+    @pytest.mark.parametrize('user_name',
+                             ('test01', 'test02',  'test03'))
+    def test_login3(self, user_name):
+        print(user_name)
+        print('正确的用户名和密码登录3')
+
+    #通过字典类型的可迭代对象实现参数化
+    @pytest.mark.parametrize('user_name',
+                             {'user_name':'test01', 'user_name':'test02',  'user_name':'test03'})
+    def test_login4(self, user_name):
+        print(user_name)
+        print('正确的用户名和密码登录4')
+
+
+if __name__ == '__main__':
+    pytest.main(['-vs','-k','test_parameter'])
+
+
+2》yaml 文件读取参数
+导入模块
+from unit_tools.handle_data.yaml_handler import read_yaml
+
+    @pytest.mark.parametrize('api_info',read_yaml('../data/adduser.yaml'))
+    def test_04(self,api_info):
+        print(f'获取的接口信息：{api_info}')
+
+
+
+代码实现
+
+import pytest
+from unit_tools.handle_data.yaml_handler import read_yaml
+
+class TestParameter:
+
+    @pytest.mark.parametrize('api_info',read_yaml('../data/adduser.yaml'))
+    def test_04(self,api_info):
+        print(f'获取的接口信息：{api_info}')
+
+
+
+if __name__ == '__main__':
+    pytest.main(['-vs','-k','test_parameter'])

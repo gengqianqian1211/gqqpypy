@@ -1,0 +1,15 @@
+baseInfo:
+  api_name: 用户新增
+  url: /dar/uesr/addUser
+  method: post
+  header:
+    Content-Type:application/x-www
+
+testCase:
+  case_name: 用户新增正常校验
+  data:
+    username: testaaa
+    password: 11111
+    role_id: 233
+    #读取之前存储的token
+    token: ${get_extratc_data()}

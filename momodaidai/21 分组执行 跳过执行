@@ -1,0 +1,56 @@
+21 分组执行和跳过执行
+ 分组执行
+ 1》可以使用mark或者参数化来实现测试用例的分组执行
+ 使用命令  -m  执行分组的测试用例
+ 添加标签  @pytest.mark.p1
+ 在pytest.ini中添加标记
+ #注册自定义标记
+markers =
+    P1
+ 运行命令命令行
+执行单组测试用例  pytest -vs -m “P1”
+执行多组测试用例  pytest -vs -m “P1 or P3”
+
+ 运行命令 pytest.ini修改运行命令
+执行单组测试用例  pytest -vs -m P1
+执行多组测试用例  pytest -vs -m 'P1 or P3'
+
+ 代码实现
+  @pytest.mark.P1
+    def test_login_sucess(self):
+        assert random.choice([True,False]),'测试失败'
+        print('登录成功场景')
+
+2> 跳过执行
+使用装饰器
+@pytest.mark.skip  （无条件跳过，在测试用例的函数上直接使用）
+@pytest.mark.skipif  （有条件跳过，根据指定的条件跳过测试用例）
+@pytest.mark.xfail  用于标记测试用例预期失败，当测试用例执行失败，而是作为预期失败
+
+代码实现
+import random
+import pytest
+
+class Testlogin:
+
+    @pytest.mark.skip
+    def test_login_sucess(self):
+        print('登录成功场景')
+
+    num = 3
+    @pytest.mark.skipif(num == 3,reason='符合表达式条件，所以次用例跳过')
+    def test_login_sucess1(self):
+        print('登录失败场景')
+
+    num = 5
+    @pytest.mark.skipif(num == 3, reason='符合表达式条件，所以次用例跳过')
+    def test_login_sucess1(self):
+        print('登录失败场景222')
+
+    @pytest.mark.xfail
+    def test_login_sucess5(self):
+        assert 1 ==2
+        print('登录失败场景222')
+
+if__name__ == '__main__':
+    pytest.main(['-s', '-v', '-k','test_skip_case'])

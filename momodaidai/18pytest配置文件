@@ -1,0 +1,44 @@
+pytest配置文件编写
+
+1.在 根 目录下创建pytest.ini文件
+
+配置 文件参数说明
+
+[pytest]
+
+#用于测试时传递额外命令的选项
+（-s 表示输出调试信息
+  -v 显示更详细的信息
+  -k 指定运行测试文件和目录     '-k','test_11'
+  -n 设置多线程 多进程并行运行测试用例   '-n=3'
+  -reruns 设置全局的测试用例失败重跑次数） '--reruns 3'
+  markers   #注册之定义标记
+  -m  执行分组的测试用例   (执行单组测试用例  pytest -vs -m P1
+                         执行多组测试用例  pytest -vs -m 'P1 or P3')
+
+
+
+
+addopts = -s -v
+
+#指定测试文件的路径
+testpaths = ./testcase
+
+#用于指定测试文件的命令匹配模式
+python_file =  ctest_*.py
+
+#用于指定测试类的命名格式
+python_class = ctest*
+
+
+#用于指定测试函数的命名格式
+python_function = ctest_*
+
+
+#注册自定义标记
+markers =
+     last
+     second
+     first
+
+
